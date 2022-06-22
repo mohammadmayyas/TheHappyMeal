@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title The Happy Mael Dashboard</title>
+    <script src="~/Content/assets/vendor/jquery/jquery.min.js"></script>
+    <link href="~/Content/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/components/navbar/navbar-dropdowns.css" rel="stylesheet" />
+    <link href="~/Content/assets/components/sidebar/sidebar-default.css" rel="stylesheet" />
+    <link href="~/Content/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/assets/vendor/datatables/datatables.min.js"></script>
+    <link href="~/Content/vendor/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/master.css" rel="stylesheet" />
+</head>
+<body >
+    <div class="wrapper">
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <img src="~/images/icons/logo2.png" alt="logo" class="app-logo">
+            </div>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <ul class="list-unstyled components text-secondary">
+                    <li>
+                        <a href="@Url.Action("Index", "UsersAdmin")"><i class="fas fa-user-friends"></i> Users</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Customers", "UsersAdmin")"><i class="fas fa-user-friends"></i> Customers</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Orders")"><i class="fas fa-hamburger"></i> Orders</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "OrderDetails")"><i class="fas fa-hamburger"></i> Order Details</a>
+                    </li>
+
+                    <li>
+                        <a href="#uielementsmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-hotdog"></i> Meals</a>
+                        <ul class="collapse list-unstyled" id="uielementsmenu">
+                            <li>
+                                <a href="@Url.Action("Index", "Meal")"><i class="fas fa-hotdog"></i> Meals</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "MealCategory")"><i class="fa fa-list-alt" aria-hidden="true"></i> Categories</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Cuisnie")"><i class="fas fa-cloud-meatball"></i> Cusinies</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Offer")"><i class="fas fa-bread-slice"></i> Offers</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Reports", "Orders")"><i class="fa fa-file" aria-hidden="true"></i> Reports</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Item")"><i class="fas fa-boxes"></i> Inventory</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ReservationIndex", "Home")"><i class="fas fa-book"></i> Reservations</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Gallery")"><i class="fas fa-image"></i>Gallery</a>
+                    </li>
+                </ul>
+            }
+
+            @if (Request.IsAuthenticated && User.IsInRole("Call Center"))
+            {
+                <ul class="list-unstyled components text-secondary">
+                    <li>
+                        <a href="@Url.Action("AddOrder", "Orders")"><i class="fas fa-hamburger"></i> Add Order</a>
+                    </li>
+                </ul>
+
+            }
+
+            @if (Request.IsAuthenticated && User.IsInRole("Chef"))
+            {
+                <ul class="list-unstyled components text-secondary">
+                    <li>
+                        <a href="@Url.Action("ChefView", "OrderDetails")"><i class="fas fa-hamburger"></i> Order Details</a>
+                    </li>
+                </ul>
+
+            }
+
+            @if (Request.IsAuthenticated && User.IsInRole("Delivery"))
+            {
+                <ul class="list-unstyled components text-secondary">
+                    <li>
+                        <a href="@Url.Action("DeliveryView", "Orders")"><i class="fas fa-hamburger"></i>Your Orders</a>
+                    </li>
+                </ul>
+            }
+
+            @if (Request.IsAuthenticated && User.IsInRole("Purchase"))
+            {
+                <ul class="list-unstyled components text-secondary">
+                    <li>
+                        <a href="@Url.Action("Index", "Item")"><i class="fas fa-boxes"></i> Inventory</a>
+                    </li>
+                </ul>
+            }
+
+        </nav>
+        <div id="body" class="active">
+            <nav class="navbar navbar-expand-lg navbar-white bg-white">
+                <button type="button" id="sidebarCollapse" class="btn btn-light"><i class="fas fa-bars"></i><span></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li>
+                            @Html.Partial("_LoginPartial")
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/OrderScript.js"></script>
+    <script src="~/Content/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/assets/vendor/datatables/datatables.min.js"></script>
+    <script src="~/Content/assets/js/initiate-datatables.js"></script>
+    <script src="~/Content/vendor/select2/select2.min.js"></script>
+    <script src="~/Content/assets/js/script.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

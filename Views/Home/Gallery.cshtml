@@ -1,0 +1,72 @@
+﻿@model IEnumerable<TheHappyMeal.Models.Gallery>
+@{
+    ViewBag.Title = "Gallery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/util.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+</head>
+
+<!-- Title Page -->
+<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(../../images/bg-event-04.jpg);">
+    <h2 class="tit6 t-center">
+        Gallery
+    </h2>
+</section>
+
+<!-- Gallery -->
+<div class="section-gallery p-t-118 p-b-100">
+    <div class="wrap-label-gallery filter-tope-group size27 flex-w flex-sb-m m-l-r-auto flex-col-c-sm p-l-15 p-r-15 m-b-60">
+        <button class="label-gallery txt26 trans-0-4 is-actived" data-filter="*">
+            All Photo
+        </button>
+
+        <button class="label-gallery txt26 trans-0-4" data-filter=".interior">
+            Interior
+        </button>
+
+        <button class="label-gallery txt26 trans-0-4" data-filter=".food">
+            Food
+        </button>
+
+        <button class="label-gallery txt26 trans-0-4" data-filter=".events">
+            Events
+        </button>
+
+        <button class="label-gallery txt26 trans-0-4" data-filter=".guests">
+            Vip guests
+        </button>
+    </div>
+
+    <div class="wrap-gallery isotope-grid flex-w p-l-25 p-r-25">
+        @foreach (var item in Model)
+        {
+            <!-- - -->
+            <div class="item-gallery isotope-item bo-rad-10 hov-img-zoom @item.ImageCategory">
+                <img src="../../Uploads/Gallery/@item.ImageName" alt="IMG-GALLERY">
+
+                <div class="overlay-item-gallery trans-0-4 flex-c-m">
+                    <a class="btn-show-gallery flex-c-m fa fa-search" href="../../Uploads/Gallery/@item.ImageName" data-lightbox="gallery"></a>
+                </div>
+            </div>
+        }
+</div>
+
+<script>
+
+    function update() {
+        var button = $(this);
+        var filter = button.data('filter');
+        if (checkbox.is(':checked')) {
+            $('.' + filter).fadeIn();
+        } else {
+            $('.' + filter).fadeOut();
+        }
+    }
+
+</script>
+
+

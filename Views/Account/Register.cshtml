@@ -1,0 +1,95 @@
+﻿@model IdentitySample.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+<head>
+    <link href="~/Content/registerform/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/util.css" rel="stylesheet" />
+    <style>
+        .form-control {
+            /*background-color: rgba(53, 33, 32, 0.42);*/
+            border-radius: 15px;
+        }
+    </style>
+</head>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h1 class="w3ls"> Register </h1>
+
+<div class="content-agileits">
+    <form action="#" method="post" data-toggle="validator" role="form">
+        <div class="form-group w3layouts w3 w3l">
+            <label for="firstname" class="control-label" style="text-align:left">User Name</label>
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", style = "font-size: 18px" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group w3l agileinfo wthree w3-agileits">
+            <label for="inputEmail" class="control-label" style="text-align:left">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", style = "font-size: 18px" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger"})
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group agileits w3layouts w3">
+            <label for="Phone" class="control-label" style="text-align:left">Phone Number</label>
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" , id = "number", style = "font-size: 18px" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+            <div class="help-block with-errors error"></div>
+        </div>
+        <div class="form-group agileinfo wthree w3-agileits agile">
+            <label for="Address" class="control-label" style="text-align:left">Address</label>
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", style = "font-size: 18px" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group agileinfo wthree w3-agileits agile">
+            <label for="City" class="control-label" style="text-align:left">City</label>
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control", style = "font-size: 18px" })
+            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group agile agileits-w3layouts w3-agile">
+            <label for="inputPassword" class="control-label" >Password</label>
+            <label for="inputPassword" class="control-label" style="margin-left: 100px">Confirm Password</label>
+            <div class="form-inline row">
+                <div class="form-group col-sm-6 agileits-w3layouts">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", style = "margin-left: 30px" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-sm-6 w3-agile">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", style = "margin-left: 55px" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg">Register</button>
+        </div>
+    </form>
+</div>
+}
+
+<script>
+
+    $(function () {
+        $("#submitStatus").click(function () {
+            debugger;
+            var number = ($("#number").val());
+            var n = number.includes("077");
+            if (n) {
+                $("#error").append("Please enter a valid number.");
+                return false;
+            }
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

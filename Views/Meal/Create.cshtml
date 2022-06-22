@@ -1,0 +1,149 @@
+﻿@model TheHappyMeal.Models.Meal
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Create Food Item</h2>
+
+@using (Html.BeginForm("Create", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Profit, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Profit, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Profit, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="upload" id="mealImage" required/>
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            <p id="error" style="color: red"></p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CategoryId", null, "--Select Category--", htmlAttributes: new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CuisineId, "CuisineId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CuisineId", null, "--Select Cuisine--", htmlAttributes: new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(model => model.CuisineId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PreparationTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PreparationTime, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PreparationTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ingredients, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="hidden" id="Ingredients" name="Ingredients" />
+            <select class="mySelect2 form-control" id="Ingredients" name="Ingredients" multiple required>
+                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.Items)
+                {
+                    <option value="@item.Text">@item.Text</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.Ingredients, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-primary" id="save" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".mySelect2").select2({
+            placeholder: "  -- Select Ingredients --",
+            allowClear: true,
+
+        });
+    });
+
+    $(".mySelect2").on("change", function () {
+        var ingred = $(this).val();
+        $("#Ingredients").val(ingred) ;
+    });
+
+    $(function () {
+        $("#save").click(function () {
+
+            //Check if the input is empty
+            if ($("#mealImage").val() == "") {
+                $("#error").append("Please select an image");
+                return false;
+            }
+
+            if ($("#mealImage").val() != "") {
+                //Check if the image extention is valid
+                var filename = document.getElementById("mealImage").value;
+                var extImg = filename.subtsr(filename.lastIndexOf('.') + 1);
+                var validExt = ['jpg', 'png', 'bmp', 'gif'];
+
+                if ($.inArray(extImg, validExt) == -1) {
+                    $("#error").append("Please select a valid image");
+                }
+
+                //Check if the image size is valid 
+                var fileSize = document.getElementById("mealImage").files[0].size / 1024 / 1024;
+
+                if (fileSize > 2) {
+                    $("#error").append("Please select a image less than 2m");
+                    return false;
+                }
+            }
+
+
+        });
+    });
+</script>

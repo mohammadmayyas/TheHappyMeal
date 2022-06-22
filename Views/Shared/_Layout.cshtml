@@ -1,0 +1,228 @@
+﻿<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title The Happy Meal</title>
+    <script src="~/Content/assets/vendor/jquery/jquery.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/fonts/themify/themify-icons.css" rel="stylesheet" />
+    <link href="~/Content/vendor/animsition/css/animsition.css" rel="stylesheet" />
+    <link href="~/Content/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/animsition/css/animsition.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/select2/select2.css" rel="stylesheet" />
+    <link href="~/Content/vendor/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/vendor/slick/slick.css" rel="stylesheet" />
+    <link href="~/Content/vendor/lightbox2/css/lightbox.min.css" rel="stylesheet" />
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/util.css" rel="stylesheet" />
+
+</head>
+<body class="animsition">
+    <!-- Header -->
+    <header>
+        <!-- Header desktop -->
+        <div class="wrap-menu-header gradient1 trans-0-4">
+            <div class=" h-full">
+                <div class="wrap_header trans-0-3">
+                    <!--Logo-->
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="../../images/icons/logo.png" alt="IMG-LOGO" data-logofixed="../../images/icons/logo2.png">
+                        </a>
+                    </div>
+
+                    <!--Menu-->
+                    <div class="wrap_menu p-l-45 p-l-0-xl">
+                        <nav class="menu">
+                            <ul class="main_menu">
+                                <li>
+                                    @Html.ActionLink("Home", "Index", "Home")
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink("Menu", "Menu", "Home")
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink("Offers", "Offers", "Home")
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink("Gallery", "Gallery", "Home")
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink("About", "About", "Home")
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink("Contact", "Contact", "Home")
+                                </li>
+                                <li >
+                                    @Html.Partial("_LoginPartial")
+                                </li>
+                            </ul>
+                            @*<ul class="login">
+                                <li>
+                                    @Html.Partial("_LoginPartial")
+                                </li>
+                            </ul>*@
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+    <!-- Footer -->
+    <footer class="bg1">
+        <div class="container p-t-40 p-b-70">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 p-t-50">
+                    <!-- - -->
+                    <h4 class="txt13 m-b-33">
+                        Contact Us
+                    </h4>
+
+                    <ul class="m-b-70">
+                        <li class="txt14 m-b-14">
+                            <i class="fa fa-map-marker fs-16 dis-inline-block size19" aria-hidden="true"></i>
+                            5th floor, 379 King Hussien St, Irbid
+                        </li>
+
+                        <li class="txt14 m-b-14">
+                            <i class="fa fa-phone fs-16 dis-inline-block size19" aria-hidden="true"></i>
+                            (+962) 79 716 6879
+                        </li>
+
+                        <li class="txt14 m-b-14">
+                            <i class="fa fa-envelope fs-13 dis-inline-block size19" aria-hidden="true"></i>
+                            thehappy2021@gmail.com.com
+                        </li>
+                    </ul>
+
+                    <!-- - -->
+                    <h4 class="txt13 m-b-32">
+                        Opening Times
+                    </h4>
+
+                    <ul>
+                        <li class="txt14">
+                            09:30 AM – 11:00 PM
+                        </li>
+
+                        <li class="txt14">
+                            Every Day
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-md-4 p-t-50">
+                    <!-- - -->
+                    <h4 class="txt13 m-b-33">
+                        Latest twitter
+                    </h4>
+
+                    <div class="m-b-25">
+                        <span class="fs-13 color2 m-r-5">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </span>
+                        <a href="#" class="txt15">
+                            colorlib
+                        </a>
+
+                        <p class="txt14 m-b-18">
+                            Activello is a good option. It has a slider built into that displays the featured image in the slider.
+                            <a href="#" class="txt15">
+                                https://buff.ly/2zaSfAQ
+                            </a>
+                        </p>
+
+                    </div>
+
+                    <div>
+                        <span class="fs-13 color2 m-r-5">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </span>
+                        <a href="#" class="txt15">
+                            colorlib
+                        </a>
+
+                        <p class="txt14 m-b-18">
+                            Activello is a good option. It has a slider built into that displays
+                            <a href="#" class="txt15">
+                                https://buff.ly/2zaSfAQ
+                            </a>
+                        </p>
+
+                    </div></br>
+                    <h4 class="txt13 ">
+                        Social
+                    </h4></br>
+                    <div class="p-t-5 p-b-5">
+                        <a href="#" class="fs-15 c-white"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
+                        <a href="#" class="fs-15 c-white"><i class="fa fa-facebook m-l-18" aria-hidden="true"></i></a>
+                        <a href="#" class="fs-15 c-white"><i class="fa fa-twitter m-l-18" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 p-t-50">
+                    <!-- Location footer -->
+                    <div class="wrap-gallery-footer flex-w">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3363.637426587606!2d35.86270231465764!3d32.53582930355226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151c76f344fa4c67%3A0x8f66171f036354d6!2sIrbid%20City%20Center!5e0!3m2!1sen!2sjo!4v1618434989285!5m2!1sen!2sjo" width="545" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top bg0-hov" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        </span>
+    </div>
+
+    <!-- Container Selection1 -->
+    <div id="dropDownSelect1"></div>
+
+    <!-- Modal Video 01-->
+    <div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog" role="document" data-dismiss="modal">
+            <div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
+
+            <div class="wrap-video-mo-01">
+                <div class="w-full wrap-pic-w op-0-0"><img src="../../images/icons/video-16-9.jpg" alt="IMG"></div>
+                <div class="video-mo-01">
+                    <iframe src="https://www.youtube.com/embed/5k1hSu2gdKE?rel=0&amp;showinfo=0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/Content/vendor/animsition/js/animsition.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/vendor/select2/select2.min.js"></script>
+    <script src="~/Content/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/vendor/slick/slick.min.js"></script>
+    <script src="~/Content/js/slick-custom.js"></script>
+    <script src="~/Content/vendor/parallax100/parallax100.js"></script>
+    <script src="~/Content/vendor/countdowntime/countdowntime.js"></script>
+    <script src="~/Content/vendor/lightbox2/js/lightbox.min.js"></script>
+    <script src="~/Content/js/map-custom.js"></script>
+    <script src="~/Content/js/main.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/respond.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>

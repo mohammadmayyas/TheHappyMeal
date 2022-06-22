@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TheHappyMeal.Models.Offer>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(../../images/bg-title-page-02.jpg);">
+    <h2 class="tit6 t-center">
+        Our Offers
+    </h2>
+</section>
+
+<!--Customer Name-->
+<input id="userName" value="@User.Identity.Name" style="display: none" disabled />
+<!-- Order Cart -->
+<div id="addOrderCart2" style="display:none">
+    <div id="cartHeader">
+        Your Orders
+        <button type="button" id="cartClose" class="close2" aria-label="Close2" onclick="off()">
+            <span aria-hidden="true" style="width: 20px; height: 20px;">&times;</span>
+        </button>
+    </div>
+    <div id="customerOrders2">
+    </div>
+    <div class="cartFooter" id="foter">
+        <p class="theTotal">Total: JD <input id="orderTotal2" value="0" disabled></p>
+        <button type="button" id="submit2" class="Checkout">Checkout</button>
+        <span class="text-danger" id="orderMessage"></span>
+    </div>
+</div>
+
+<!-- Meals -->
+<section class="section-dinner bgwhite Meal" id="Meal">
+
+    <div class="container">
+        <div class="row p-t-108 p-b-70">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-md-12 col-lg-12 m-l-r-auto " value="@item.Price" style="display:flex; margin-bottom: 30px;">
+                    <div class="pic-blo3 size39 bo-rad-10 hov-img-zoom m-r-28">
+                        <a href="#"><img src="../../Uploads/Offers/@item.OfferImage" alt="IMG-MENU" class="mealImg"></a>
+                    </div>
+                    <div class="text-blo3 size21">
+                        <div class=" flex-col-l-m">
+                            <a href="#" class="txt21 m-b-3 meal-Name" id="cusName">
+                                @item.Name
+                            </a>
+
+                            <span class="txt23">
+                                @item.OfferDescription
+                            </span>
+
+                            <span class="txt22 m-t-20 mealPrice" id="mealPrice">
+                                JD @item.Price
+                            </span>
+                        </div>
+                        <span id="@item.Offer_Id" title="@item.Name" lang="@item.OfferImage" class="@item.Price"></span>
+                        <button type="button" onclick="on()" class="order add2">Order</button>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</section>
+
+
+<script src="~/Scripts/OrderScript.js"></script>
+<script>
+    function on() {
+        $('#addOrderCart2').fadeIn();;
+    }
+    function off() {
+        $('#addOrderCart2').fadeOut();;
+    }
+</script>

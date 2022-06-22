@@ -1,0 +1,424 @@
+﻿@model IEnumerable<TheHappyMeal.Models.Meal>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/util.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+</head>
+
+<!-- Sidebar -->
+<aside class="sidebar trans-0-4">
+    <!-- Button Hide sidebar -->
+    <button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+
+    <span style="margin-left: 20px; font-size: 20px;">Filter by</span>
+    <!-- - -->
+
+    <div class="slider-box">
+        <span>Price :</span><span id="price" style="margin-left: 10px"></span><span> JD</span>
+        <input type="range" min="0" max="20" value="0" id="range"/>
+    </div>
+
+    <div class="categories">
+        <button type="button" class="btn btn-danger" onclick="showCtegories()" style="font-size: 18px; margin-top: 10px; margin-left: 10px; width: 150px">Category</button>
+        <div class="categoryList" id="categoriesDiv" style="display: none">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.CategoryList)
+            {
+                <div class="checksDiv">
+                    <input class="checks" type="checkbox" data-name="@item.Text" checked>
+                    <label class="form-check-label" for="checks">
+                        @item.Text
+                    </label>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <!-- - -->
+    <div class="cuisines">
+        <button type="button" class="btn btn-danger" onclick="showCusinies()" style="font-size: 18px; margin-top: 10px; margin-left: 10px; width: 150px">Cusinies</button>
+        <div class="CuisineList" id="cusiniesDiv" style="display: none">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.CuisineList)
+            {
+                <div class="checksDiv">
+                    <input class="checks" type="checkbox" data-name="@item.Value" checked>
+                    <label class="form-check-label" for="checks">
+                        @item.Text
+                    </label><br />
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <!-- - -->
+    <div class="ingredients">
+        <button type="button" class="btn btn-danger" onclick="showIngredients()" style="font-size: 18px; margin-top: 10px; margin-left: 10px; width: 150px">Ingredients</button>
+        <div class="IngredientList" id="ingredientsDiv" style="display: none">
+            @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.IngredientList)
+            {
+                <div class="checksDiv">
+                    <input class="checks" type="checkbox" data-name="@(item.Text)" checked>
+                    <label class="form-check-label" for="checks">
+                        @item.Text
+                    </label><br />
+                </div>
+            }
+        </div>
+    </div>
+</aside>
+
+
+<!-- Title Page -->
+<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(../../images/bg-title-page-01.jpg);">
+    <button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+    <h2 class="tit6 t-center">
+        The Happy Menu
+    </h2>
+</section>
+
+<!-- Order Cart -->
+<div id="addOrderCart" style="display:none">
+    <div id="cartHeader">
+        Your Orders
+        <button type="button" id="cartClose" class="close" aria-label="Close" onclick="off()" style="width: 20px; height: 20px">
+            <span aria-hidden="true" style="width: 20px; height: 20px">&times;</span>
+        </button>
+    </div>
+    <div id="customerOrders">
+    </div>
+    <div class="cartFooter" id="foter">
+        <p class="theTotal">Total: JD <input id="orderTotal" value="0" disabled></p>
+        <button type="button" id="submit" class="Checkout">Checkout</button><br />
+        <div class="message1">
+            <span class="text-danger" id="orderMessage"></span>
+        </div>
+        
+    </div>
+</div>
+
+
+<!-- Main menu -->
+<section class="section-mainmenu p-t-110 p-b-70 bg1-pattern">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-6 p-r-35 p-r-15-lg m-l-r-auto">
+                <div class="wrap-item-mainmenu p-b-22">
+                    <h3 class="tit-mainmenu tit10 p-b-25">
+                        MEALS
+                    </h3>
+                    <!-- Item mainmenu -->
+                    @foreach (var item in Model)
+                    {
+                        if (item.Category.Name == "Meal")
+                        {
+                            <div class="item-mainmenu m-b-36">
+                                <div class="flex-w flex-b m-b-3">
+                                    <a class="name-item-mainmenu txt21">
+                                        @item.Name
+                                    </a>
+
+                                    <div class="line-item-mainmenu bg3-pattern"></div>
+
+                                    <div class="price-item-mainmenu txt22">
+                                        JD @item.Price
+                                    </div>
+                                </div>
+
+                                <span class="info-item-mainmenu txt23">
+                                    @item.Ingredients
+                                </span>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Item mainmenu -->
+                <div class="wrap-item-mainmenu p-b-22">
+                    <h3 class="tit-mainmenu tit10 p-b-25">
+                        Drinks
+                    </h3>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.Category.Name == "Drink")
+                        {
+                            <div class="item-mainmenu m-b-36">
+                                <div class="flex-w flex-b m-b-3">
+                                    <a class="name-item-mainmenu txt21">
+                                        @item.Name
+                                    </a>
+
+                                    <div class="line-item-mainmenu bg3-pattern"></div>
+
+                                    <div class="price-item-mainmenu txt22">
+                                        JD @item.Price
+                                    </div>
+                                </div>
+
+                                <span class="info-item-mainmenu txt23">
+                                    @item.Ingredients
+                                </span>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Item mainmenu -->
+            <div class="col-md-10 col-lg-6 p-l-35 p-l-15-lg m-l-r-auto">
+                <div class="wrap-item-mainmenu p-b-22">
+                    <h3 class="tit-mainmenu tit10 p-b-25">
+                        Sandwichs
+                    </h3>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.Category.Name == "Sandwich")
+                        {
+                            <div class="item-mainmenu m-b-36">
+                                <div class="flex-w flex-b m-b-3">
+                                    <a class="name-item-mainmenu txt21">
+                                        @item.Name
+                                    </a>
+
+                                    <div class="line-item-mainmenu bg3-pattern"></div>
+
+                                    <div class="price-item-mainmenu txt22">
+                                        JD @item.Price
+                                    </div>
+                                </div>
+
+                                <span class="info-item-mainmenu txt23">
+                                    @item.Ingredients
+                                </span>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Item mainmenu -->
+                <div class="wrap-item-mainmenu p-b-22">
+                    <h3 class="tit-mainmenu tit10 p-b-25">
+                        Salads
+                    </h3>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.Category.Name == "Salad")
+                        {
+                            <div class="item-mainmenu m-b-36">
+                                <div class="flex-w flex-b m-b-3">
+                                    <a class="name-item-mainmenu txt21">
+                                        @item.Name
+                                    </a>
+
+                                    <div class="line-item-mainmenu bg3-pattern"></div>
+
+                                    <div class="price-item-mainmenu txt22">
+                                        JD @item.Price
+                                    </div>
+                                </div>
+
+                                <span class="info-item-mainmenu txt23">
+                                    @item.Ingredients
+                                </span>
+                            </div>
+                        }
+                    }
+
+                </div>
+
+                <!-- Item mainmenu -->
+                <div class="wrap-item-mainmenu p-b-22">
+                    <h3 class="tit-mainmenu tit10 p-b-25">
+                        Desserts
+                    </h3>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.Category.Name == "Dessert")
+                        {
+                            <div class="item-mainmenu m-b-36">
+                                <div class="flex-w flex-b m-b-3">
+                                    <a class="name-item-mainmenu txt21">
+                                        @item.Name
+                                    </a>
+
+                                    <div class="line-item-mainmenu bg3-pattern"></div>
+
+                                    <div class="price-item-mainmenu txt22">
+                                        JD @item.Price
+                                    </div>
+                                </div>
+
+                                <span class="info-item-mainmenu txt23">
+                                    @item.Ingredients
+                                </span>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Customer Name-->
+<input id="userName" value="@User.Identity.Name" style="display: none" disabled />
+
+<!-- Categories -->
+
+@foreach (var Item in (IEnumerable<SelectListItem>)ViewBag.CategoryList)
+{
+    <section class="section-dinner bgwhite @Item.Text" id="Meal">
+        <div class="header-dinner parallax0 parallax100" style="background-image: url(../../Uploads/Images/@(Item.Text + ".jpg") );">
+            <div class="bg1-overlay t-center p-t-110 p-b-110">
+                <h2 class="tit4 t-center">
+                    @Item.Text
+                </h2>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row p-t-108 p-b-70">
+                @foreach (var item in Model)
+                {
+                    if (item.Category.Name == Item.Text)
+                    {
+                        <div class="col-md-8 col-lg-6 m-l-r-auto @item.CuisineId @item.Ingredients" style="display:flex; margin-bottom: 30px;">
+                            <div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28 ">
+                                <a href="#"><img src="../../Uploads/Meals/@item.Image" alt="IMG-MENU" class="mealImg"></a>
+                            </div>
+                            <div class="text-blo3 size21">
+                                <div class=" flex-col-l-m">
+                                    <a href="#" class="txt21 m-b-3 meal-Name" id="cusName">
+                                        @item.Name
+                                    </a>
+
+                                    <span class="txt23">
+                                        @item.Ingredients
+                                    </span>
+
+                                    <span class="txt22 m-t-20 mealPrice" id="mealPrice">
+                                        <span>
+                                            JD
+                                        </span>
+                                        <span class="price">
+                                            @item.Price
+                                        </span>
+                                    </span>
+
+                                </div>
+                                <span id="@item.MealId" title="@item.Name" lang="@item.Image" class="@item.Price"></span>
+                                <button type="button" onclick="on()" class="order add">Order</button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<script src="~/Scripts/OrderScript.js"></script>
+<script>
+
+    function on() {
+        $('#addOrderCart').fadeIn();;
+    }
+    function off() {
+        $('#addOrderCart').fadeOut();;
+    }
+
+    var count1 = 0;
+    function showCtegories() {
+        if (count1 == 0) {
+            document.getElementById("categoriesDiv").style.display = "block";
+            count1++;
+        }
+        else {
+            hideCtegories();
+            count1 = 0;
+        }
+    }
+    function hideCtegories() {
+        document.getElementById("categoriesDiv").style.display = "none";
+    }
+
+    var count2 = 0;
+    function showCusinies() {
+        if (count2 == 0) {
+            document.getElementById("cusiniesDiv").style.display = "block";
+            count2++;
+        }
+        else {
+            hideCusinies();
+            count2--;
+        }
+    }
+    function hideCusinies() {
+        document.getElementById("cusiniesDiv").style.display = "none";
+    }
+
+    var count3 = 0;
+    function showIngredients() {
+        if (count3 == 0) {
+            document.getElementById("ingredientsDiv").style.display = "block";
+            count3++;
+        }
+        else {
+            hideIngredients();
+            count3--;
+        }
+    }
+    function hideIngredients() {
+        document.getElementById("ingredientsDiv").style.display = "none";
+    }
+
+    function update() {
+        var checkbox = $(this);
+        var name = checkbox.data('name');
+        if (checkbox.is(':checked')) {
+            $('.' + name).fadeIn();
+        } else {
+            $('.' + name).fadeOut();
+        }
+    }
+    //setup change and each to use the same function
+    $('.checks').change(update).each(update);
+
+    $(document).ready(function () {
+
+        $("#range").change(function () {
+            $("#price").text($("#range").val());
+            var slider = $("#range").val();
+            $(".price").each(function () {
+                let val = $(this).text();
+                if (parseInt(val) > slider)
+                    $(this).parents().eq(3).fadeOut();
+                else
+                    $(this).parents().eq(3).fadeIn();
+                if (slider == 0) {
+                    $(this).parents().eq(3).fadeIn();
+                }
+            });
+        });
+
+    });
+
+
+
+</script>
+
+
+
+

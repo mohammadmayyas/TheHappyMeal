@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Orders Reports</h2>
+
+@using (Html.BeginForm("ExportOrderReport", "Orders", FormMethod.Post))
+{
+    <div class="row">
+        <span style="margin-left: 30px; font-size: 20px">Start Date</span><input type="date" name="Start" id="Start1" class="form-control col-3" style="width: 200px; margin-left: 20px;" />
+        <span style="margin-left: 30px; font-size: 20px">End Date</span><input type="date" name="End" id="End1" class="form-control col-3" style="width: 200px; margin-left: 20px;" />
+        <button type="submit" name="Get Report" class="btn btn-sm btn-outline-primary" style="margin-left: 30px;" onclick="validateDate1()">Get Report</button>
+    </div>
+    <script>
+        function validateDate1() {
+            if (document.getElementById('Start1').valueAsDate == "") {
+                return false;
+            }
+            if (document.getElementById('End1').valueAsDate == "") {
+                return false;
+            }
+        }
+       
+    </script>
+
+}
+
+@using (Html.BeginForm("ExportOrderReport", "Orders", FormMethod.Post))
+{
+    <div id="hide" class="row">
+        <span>Start Date</span><input type="date" id="sToday" name="Start" style="height: 20px;" />
+        <span>End Date</span><input type="date" id="eToday" name="End" style="height: 20px;" />
+    </div>
+    <button type="submit" name="GetReport" class="btn btn-sm btn-outline-primary" style="width: 200px; margin-left: 125px;">Get Daily Report</button>
+    <script>
+        document.getElementById('sToday').valueAsDate = new Date();
+        document.getElementById('eToday').valueAsDate = new Date(new Date().setDate(new Date().getDate() + 1));
+        document.getElementById('hide').style.visibility = "hidden";
+    </script>
+}
+
+
+<div style="margin-top: 100px;">
+    <h2>Sales Reports</h2>
+
+    @using (Html.BeginForm("ExportSalesReport", "Orders", FormMethod.Post))
+    {
+        <div class="row">
+            <span style="margin-left: 30px; font-size: 20px">Start Date</span><input type="date" name="Start" id="Start2" class="form-control col-3" style="width: 200px; margin-left: 20px;" />
+            <span style="margin-left: 30px; font-size: 20px">End Date</span><input type="date" name="End" id="End2" class="form-control col-3" style="width: 200px; margin-left: 20px;" />
+            <button type="submit" name="Get Sales Report" class="btn btn-sm btn-outline-primary" style="margin-left: 30px; ">Get Report</button>
+        </div>
+        <script>
+            function validateDate2() {
+                if (document.getElementById('Start2').valueAsDate == "") {
+                    return false;
+                }
+                if (document.getElementById('End2').valueAsDate == "") {
+                    return false;
+                }
+            }
+
+        </script>
+
+    }
+
+    @using (Html.BeginForm("ExportSalesReport", "Orders", FormMethod.Post))
+    {
+        <div id="hide2">
+            <span>Start Date</span><input type="date" id="sToday2" name="Start" style="height: 20px;" />
+            <span>End Date</span><input type="date" id="eToday2" name="End" style="height: 20px;" />
+        </div>
+        <button type="submit" name="GetReport" class="btn btn-sm btn-outline-primary" style="width: 200px; margin-left: 125px;">Get Daily Report</button>
+        <script>
+            document.getElementById('sToday2').valueAsDate = new Date();
+            document.getElementById('eToday2').valueAsDate = new Date(new Date().setDate(new Date().getDate() + 1));
+            document.getElementById('hide2').style.visibility = "hidden";
+        </script>
+    }
+
+</div>

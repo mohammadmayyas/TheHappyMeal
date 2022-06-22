@@ -1,0 +1,80 @@
+﻿@model TheHappyMeal.Models.Gallery
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Gallery", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Gallery</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="upload" id="ImageName" required/>
+                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageCategory, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script>
+
+    $(function () {
+        $("#save").click(function () {
+
+            //Check if the input is empty
+            if ($("#ImageName").val() == "") {
+                $("#error").append("Please select an image");
+                return false;
+            }
+
+            if ($("#ImageName").val() != "") {
+                //Check if the image extention is valid
+                var filename = document.getElementById("ImageName").value;
+                var extImg = filename.subtsr(filename.lastIndexOf('.') + 1);
+                var validExt = ['jpg', 'png', 'bmp', 'gif'];
+
+                if ($.inArray(extImg, validExt) == -1) {
+                    $("#error").append("Please select a valid image");
+                }
+
+                //Check if the image size is valid
+                var fileSize = document.getElementById("ImageName").files[0].size / 1024 / 1024;
+
+                if (fileSize > 2) {
+                    $("#error").append("Please select a image less than 2m");
+                    return false;
+                }
+            }
+
+
+        });
+    });
+</script>

@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Chef") || User.IsInRole("Call Center") || User.IsInRole("Delivery") || User.IsInRole("Purchase")))
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul>
+            <li class="nav-item dropdown">
+                <div class="nav-dropdown">
+                    <a href="" class="nav-item nav-link dropdown-toggle text-secondary" data-toggle="dropdown"><i class="fas fa-user"></i> <span>@User.Identity.GetUserName()</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right nav-link-menu">
+                        <ul class="nav-list">
+                            <li><a href="@Url.Action("Index", "Manage")" class="dropdown-item"><i class="fas fa-address-card"></i> Profile</a></li>
+                            <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i> Messages</a></li>
+                            <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                            <div class="dropdown-divider"></div>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    }
+}
+else if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"/*, @class = "navbar-right"*/ }))
+    {
+        @Html.AntiForgeryToken()
+        <ul class="main_menu login">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName(), "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>
+        </ul>
+    }
+}
+else
+    {
+<ul class="main_menu login">
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+</ul>
+}

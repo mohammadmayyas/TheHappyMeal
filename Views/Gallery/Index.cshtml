@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TheHappyMeal.Models.Gallery>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageCategory)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            
+            <img src="~/Uploads/Gallery/@Html.DisplayFor(modelItem => item.ImageName)"
+                 class="thumbnail" style="width:48px; height:48px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageCategory)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,70 @@
+﻿@model IdentitySample.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<head>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+    <link href="~/Content/loginform/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/loginform/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/util.css" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+    <style>
+        .ActionLink{
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<h1>Login Now </h1>
+<div class="clear-loading spinner">
+    <span></span>
+</div>
+<div class="w3ls-login box box--big">
+    <!-- form starts here -->
+    @using (Html.BeginForm("Login", "Account", new {  ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+            <div class="agile-field-txt">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <label><i class="fa fa-user" aria-hidden="true"></i> Username </label>
+                @Html.TextBoxFor(m => m.UserName, new { placeholder = "Enter User Name" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            </div>
+            <div class="agile-field-txt">
+                <label><i class="fa fa-unlock-alt" aria-hidden="true"></i> password </label>
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Enter Password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                @*<div class="agile_label">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    <label class="check" for="check3">Remember Me</label>
+                </div>*@
+                <div class="agile-right">
+                    @Html.ActionLink("Forget password?", "Login")
+                </div>
+            </div>
+            <input type="submit" value="LOGIN"><br />
+            <div class="agile-right">
+            <p style="font-size: 15px; color: white">Don't Have an Account ? @Html.ActionLink("Register Now", "Register")</p>
+            </div>
+    }
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,78 @@
+﻿@model TheHappyMeal.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "AddOrder";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 >Add Order</h2>
+<div class="row">
+    <div class="col-6"><input type="text" id="name" class="form-control col-6" placeholder="Enter Customer Name" onkeyup="CustomerCheck()" style="width: 100%"/></div>
+    <div class="col-md-6">@Html.DropDownList("CategoryList", null, "--Select Category--", new { @class = "form-control col-6", id = "CatId" })</div>
+
+</div>
+
+<div class="row">
+    <label class="col-sm-3">
+        <span id="status"></span>
+    </label>
+</div>
+<button type="button" class="btn btn-primary " style="width: 175px; margin-top: 30px;"><a href="@Url.Action("AddCustomer" ,"UsersAdmin")">Add Customer</a></button>
+
+
+
+<table class="table table-responsive" id="tblItems">
+    <tr>
+        <th>
+            Meal
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            SubTotal
+        </th>
+        <th></th>
+    </tr>
+    <tr id="MainRow">
+        <td>
+            @Html.DropDownList("MealsList", null, "--Select Meal-- ", new { @class = "MealsList form-control" })
+            <span class="error text-danger"></span>
+        </td>
+        <td>
+            <input type="text" id="price" class="price form-control" value="0.00" disabled="disabled" />
+            <span class="error text-danger"></span>
+        </td>
+        <td>
+            <input type="text" id="quantity" class="quantity form-control" placeholder="Quantity" />
+            <span class="error text-danger"></span>
+        </td>
+        <td>
+            <input type="text" id="total" class="total form-control" disabled="disabled" />
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary" id="add">Add</button>
+        </td>
+    </tr>
+    <th>
+        Total Price
+    </th>
+    <tr>
+
+        <td>
+            <input type="text" id="totalPrice" class="total form-control" value="0" disabled="disabled" />
+        </td>
+    </tr>
+</table>
+
+<table class="table table-responsive" id="OrderItems"></table>
+
+
+
+<button type="button" class="btn btn-primary" id="submit">Add Order</button>
+
+<span class="text-danger" id="orderMessage"></span>
+
